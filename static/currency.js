@@ -28,6 +28,17 @@ document.getElementById("submit").addEventListener("click", (e) => {
     }, (error) => {
         console.error("Failed!", error);
     });
+    getCurrency(currency, "lineGraph").then((response) => {
+        let graphPoints = Array();
+        for (let date in response.rates) {
+            graphPoints.push({x: date, y: response.rates[date][currency]})
+        }
+        console.log(response.rates);
+        console.log(graphPoints);
+        
+    }, (error) => {
+        console.error("Failed!", error);
+    });
 });
 
 function getCurrency(currency, time) {
@@ -39,11 +50,17 @@ function getCurrency(currency, time) {
         const lastWeek = new Date(today.setDate(today.getDate() - 7));
         const dateString = `${lastWeek.getFullYear()}-${lastWeek.getMonth()}-${lastWeek.getDate()}`;
         url = `https://api.exchangeratesapi.io/${dateString}?base=USD&symbols=${currency}`;
-    } else {
+    } else if (time == "lastMonth") {
         const today = new Date();
-        const lastMonth = new Date(today.setDate(1).setMonth(today.getMonth() - 1));
+        const lastMonth = new Date(today.setMonth(today.getMonth() - 1));
         const dateString = `${lastMonth.getFullYear()}-${lastMonth.getMonth()}-${lastMonth.getDate()}`;
         url = `https://api.exchangeratesapi.io/${dateString}?base=USD&symbols=${currency}`;
+    } else {
+        const today = new Date();
+        const todayString = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        const lastYear = new Date(today.setYear(today.getFullYear() -1 ));
+        const lastYearString = `${lastYear.getFullYear()}-${lastYear.getMonth()}-${lastYear.getDate()}`;
+        url = `https://api.exchangeratesapi.io/history?start_at=${lastYearString}&end_at=${todayString}&base=USD&symbols=${currency}`;
     }
     return new Promise((resolve, reject) => {
         const req = new XMLHttpRequest();
