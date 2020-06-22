@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <link rel="stylesheet" href="/static/style.css">
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -18,28 +17,31 @@
             <form>
                 <div class="form-group">
                     <label for="usd">US Dollars</label>
-                    <input type="text" size=30 name="usd" placeholder="$"
-                      required id="usd">
+                    <input type="number" size=30 min=1 name="usd"
+                      required id="usd" step="any">
                 </div>
                 <div class="form-group">
                     <label for="currency">To:</label>
                     <select name="currency" id="currency" required>
-                        <option value="eur" selected>Euro</option>
-                        <option value="gbp">British Pound</option>
-                        <option value="cad">Canadian Dollar</option>
-                        <option value="aud">Australian</option>
-                        <option value="cny">Chinese Yuan</option>
-                        <option value="xau">Gold (oz.)</option>
-                        <option value="inr">Indian Rupee</option>
-                        <option value="jpy">Japanese Yen</option>
-                        <option value="mxn">Mexican Peso</option>
+                        <option value="EUR" selected>Euro</option>
+                        <option value="GBP">British Pound</option>
+                        <option value="CAD">Canadian Dollar</option>
+                        <option value="AUD">Australian</option>
+                        <option value="CNY">Chinese Yuan</option>
+                        <option value="XAU">Gold (oz.)</option>
+                        <option value="INR">Indian Rupee</option>
+                        <option value="JPY">Japanese Yen</option>
+                        <option value="MXN">Mexican Peso</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" name="submit" id="submit"
                       class="btn btn-primary">
                 </div>
-            </form>
+            </form><br>
+            <p id="resultNow"></p>
+            <p id="lastWeek"></p>
+            <p id="lastMonth"></p>
         </main>
         <script src="/static/currency.js" type="text/javascript"></script>
     </body>
