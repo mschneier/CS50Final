@@ -5,7 +5,6 @@ from functools import wraps
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "asfl;jasdklfj;lkjlk;23j4"
 csrf = CSRFProtect(app)
-socketio = SocketIO(app)
 
 
 def login_required(f):
