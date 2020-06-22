@@ -1,9 +1,13 @@
 document.getElementById("submit").addEventListener("click", (e) => {
     e.preventDefault();
     const currency = document.getElementById("currency").value;
-    const rateNow = getCurrency(currency, "now");
-    getCurrencyLastWeek();
-    getCurrencyLastMonth();
+    getCurrency(currency, "now").then((response) => {
+        console.log(response);
+    }, (error) => {
+        console.error("Failed!", error);
+    });
+    //getCurrencyLastWeek();
+    //getCurrencyLastMonth();
 });
 
 function getCurrency(currency, time) {
@@ -16,7 +20,7 @@ function getCurrency(currency, time) {
         req.open("GET", url);
         req.onload = () => {
             if (req.status == 200) {
-                
+                resolve(req.response);
             } else {
                 reject(Error(req.statusText));
             }
