@@ -1,5 +1,11 @@
 document.getElementById("submit").addEventListener("click", (e) => {
     e.preventDefault();
+    getCurrencyRates();
+});
+
+window.onresize = getCurrencyRates;
+
+function getCurrencyRates() {
     const currency = document.getElementById("currency").value;
     const dollars = document.getElementById("usd").value;
     getCurrency(currency, "now").then((response) => {
@@ -35,16 +41,23 @@ document.getElementById("submit").addEventListener("click", (e) => {
             graphRates.push(response.rates[date][currency]);
             graphLabels.push(date);
         }
-        let chart = document.getElementById("chart").getContext("2d");
+        makeExchangeRateChart(graphLabels, graphRates);
+    }, (error) => {
+        console.error("Failed!", error);
+    });
+};
+
+function makeExchangeRateChart(labels, rates) {
+    let chart = document.getElementById("chart").getContext("2d");
         let filterRate = Math.round(10000 / window.innerWidth);
         let lineChart = new Chart(chart, {
             type: "line",
             data: {
-                labels: graphLabels.filter((value, index, arr) => {
+                labels: labels.filter((value, index, arr) => {
                     return index % filterRate == 0;
                 }),
                 datasets: [{
-                    data: graphRates.filter((value, index, arr) => {
+                    data: rates.filter((value, index, arr) => {
                         return index % filterRate == 0;
                     }),
                     backgroundColor: ["lightgreen"]
@@ -61,10 +74,7 @@ document.getElementById("submit").addEventListener("click", (e) => {
                 }
             },
         });
-    }, (error) => {
-        console.error("Failed!", error);
-    });
-});
+}
 
 function getCurrency(currency, time) {
     let url = "";
