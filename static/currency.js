@@ -29,13 +29,38 @@ document.getElementById("submit").addEventListener("click", (e) => {
         console.error("Failed!", error);
     });
     getCurrency(currency, "lineGraph").then((response) => {
-        let graphPoints = Array();
+        let graphRates = Array();
+        let graphLabels = Array();
         for (let date in response.rates) {
-            graphPoints.push({x: date, y: response.rates[date][currency]})
+            graphRates.push(response.rates[date][currency]);
+            graphLabels.push(date);
         }
-        console.log(response.rates);
-        console.log(graphPoints);
-        
+        let chart = document.getElementById("chart").getContext("2d");
+        let filterRate = Math.round(10000 / window.innerWidth);
+        let lineChart = new Chart(chart, {
+            type: "line",
+            data: {
+                labels: graphLabels.filter((value, index, arr) => {
+                    return index % filterRate == 0;
+                }),
+                datasets: [{
+                    data: graphRates.filter((value, index, arr) => {
+                        return index % filterRate == 0;
+                    }),
+                    backgroundColor: ["lightgreen"]
+                }],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: `Exchange Rate for USD to ${currency} Over Past Year`,
+                    fontSize: 25,
+                },
+                legend: {
+                    display: false,
+                }
+            },
+        });
     }, (error) => {
         console.error("Failed!", error);
     });
