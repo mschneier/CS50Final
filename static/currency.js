@@ -34,6 +34,10 @@ function getCurrencyRates() {
     }, (error) => {
         console.error("Failed!", error);
     });
+    makeExchangeRateChart(currency);
+};
+
+function makeExchangeRateChart(currency) {
     getCurrency(currency, "lineGraph").then((response) => {
         let graphRates = Array();
         let graphLabels = Array();
@@ -41,23 +45,16 @@ function getCurrencyRates() {
             graphRates.push(response.rates[date][currency]);
             graphLabels.push(date);
         }
-        makeExchangeRateChart(graphLabels, graphRates);
-    }, (error) => {
-        console.error("Failed!", error);
-    });
-};
-
-function makeExchangeRateChart(labels, rates) {
-    let chart = document.getElementById("chart").getContext("2d");
+        let chart = document.getElementById("chart").getContext("2d");
         let filterRate = Math.round(10000 / window.innerWidth);
         let lineChart = new Chart(chart, {
             type: "line",
             data: {
-                labels: labels.filter((value, index, arr) => {
+                labels: graphLabels.filter((value, index, arr) => {
                     return index % filterRate == 0;
                 }),
                 datasets: [{
-                    data: rates.filter((value, index, arr) => {
+                    data: graphRates.filter((value, index, arr) => {
                         return index % filterRate == 0;
                     }),
                     backgroundColor: ["lightgreen"]
@@ -71,9 +68,17 @@ function makeExchangeRateChart(labels, rates) {
                 },
                 legend: {
                     display: false,
+                },
+                layout: {
+                    padding: {
+                        left: 50, right: 10, bottom: 15, top: 10
+                    }
                 }
             },
         });
+    }, (error) => {
+        console.error("Failed!", error);
+    });  
 }
 
 function getCurrency(currency, time) {
