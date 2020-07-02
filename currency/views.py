@@ -1,14 +1,9 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse
 
-from .models import CurrencyModel
+from .forms import CurrencyForm
 
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {"form": CurrencyForm()})
 
 
 def api(request, currency):
