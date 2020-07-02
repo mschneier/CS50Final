@@ -13,5 +13,5 @@ class CurrencyModel(models.Model):
         ("JPY", "Japanese Yen"),
         ("MXN", "Mexican Peso")
     ]
-    usd = models.DecimalField(decimal_places=2)
+    usd = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES)

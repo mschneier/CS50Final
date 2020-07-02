@@ -6,8 +6,8 @@ document.getElementById("submit").addEventListener("click", (e) => {
 window.onresize = getCurrencyRates;
 
 function getCurrencyRates() {
-    const currency = document.getElementById("currency").value;
-    const dollars = document.getElementById("usd").value;
+    const currency = document.getElementById("id_currency").value;
+    const dollars = document.getElementById("id_usd").value;
     getCurrency(currency, "now").then((response) => {
         const rate = response.rates[Object.keys(response.rates)[0]].toFixed(5);
         const exchanged = (dollars * rate).toFixed(2);

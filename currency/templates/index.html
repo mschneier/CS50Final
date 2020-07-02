@@ -16,23 +16,15 @@
             <h3>Currency Exchange</h3>
             <form>
                 <div class="form-group">
-                    <label for="usd">US Dollars</label>
-                    <input type="number" size=30 min=1 name="usd"
-                      required id="usd" step="any">
+                    <label for="usd" class="col-md-4 control-label text-right">
+                        US Dollars
+                    </label>
+                    {{form.usd}}
                 </div>
-                <div class="form-group">
-                    <label for="currency">To:</label>
-                    <select name="currency" id="currency" required>
-                        <option value="EUR" selected>Euro</option>
-                        <option value="GBP">British Pound</option>
-                        <option value="CAD">Canadian Dollar</option>
-                        <option value="AUD">Australian</option>
-                        <option value="CNY">Chinese Yuan</option>
-                        <option value="XAU">Gold (oz.)</option>
-                        <option value="INR">Indian Rupee</option>
-                        <option value="JPY">Japanese Yen</option>
-                        <option value="MXN">Mexican Peso</option>
-                    </select>
+                <div class="form-group" >
+                    <label for="currency" class="col-md-4 control-label text-right">
+                        To:</label>
+                    {{form.currency}}
                 </div>
                 <div class="form-group">
                     <input type="submit" name="submit" id="submit"

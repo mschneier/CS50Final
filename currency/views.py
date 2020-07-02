@@ -1,4 +1,6 @@
+from django.http import JsonResponse
 from django.shortcuts import render
+from requests import get
 
 from .forms import CurrencyForm
 
@@ -8,5 +10,5 @@ def index(request):
 
 def api(request, currency):
     url = f"https://api.exchangeratesapi.io/latest?base=USD&symbols={currency}"
-    response = jsonify(get(url).text)
+    response = JsonResponse(get(url).text, safe=False)
     return response

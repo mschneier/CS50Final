@@ -3,5 +3,5 @@ from .models import CurrencyModel
 
 class CurrencyForm(ModelForm):
     class Meta:
-        model = CurrencyForm
+        model = CurrencyModel
         fields = ["usd", "currency"]
